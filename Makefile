@@ -10,8 +10,10 @@ CC = gcc
 CFLAGS = -Wall -std=c11
 
 # Programa principal
-DGEMM_FIRST = dgemm_first
-DGEMM_FIRST_OBJ = dgemm_first.o
+MAIN = dgemm
+
+# OBJ
+DGEMM_OBJ = main.o dgemms.o evaluate_dgemm.o utils.o
 
 
 # Programas de testes
@@ -27,12 +29,12 @@ DGEMM_FIRST_OBJ = dgemm_first.o
 	$(CC) $(CFLAGS) -c $< 
 
 ##### Programa principal #####
-$(DGEMM_FIRST): $(DGEMM_FIRST_OBJ)
-	$(CC) $(CFLAGS) $(DGEMM_FIRST_OBJ) -o $@
+$(MAIN): $(DGEMM_OBJ)
+	$(CC) $(CFLAGS) $(DGEMM_OBJ) -o $@
 
 ##########  TESTES ###########
 $(TESTE): $(TESTE_OBJ)
 	$(CPP) $(CPPFLAGS) $(TESTE_OBJ) -o $@
 
 clean:
-	rm -rf $(DGEMM_FIRST) *.o 
+	rm -rf $(MAIN) *.o 
