@@ -25,6 +25,7 @@ int main(int argc, char* argv[ ]){
 
     printf("\nDGEMM:\n");
     printf("1 - DGEMM sem otimização.\n");
+    printf("2 - DGEMM com AVX subword parallel.\n");
     printf("\n\n");
     printf("Digite sua opção: ");
     scanf("%d", &opcao);
@@ -34,6 +35,11 @@ int main(int argc, char* argv[ ]){
         case 1:
             printf("1 - DGEMM sem otimização\n\n");
             test_dgemm(n, dgemm_first);
+        break;
+
+        case 2:
+            printf("2 - DGEMM com AVX subword parallel.\n");
+            test_dgemm(n, dgemm_second);
         break;
 
         default:

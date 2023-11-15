@@ -7,7 +7,7 @@
 #  Descricao: DGEMM
 
 CC = gcc
-CFLAGS = -Wall -std=c11
+CFLAGS = -Wall -mavx -std=c11
 
 # Programa principal
 MAIN = dgemm
