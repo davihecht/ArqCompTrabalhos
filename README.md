@@ -1,11 +1,11 @@
 ## Execution
-1 - Build main program
+1 - Build main
 
 ```
 make dgemm
 ```
 
-2 - Run it specifying or not "n" (matrix order). Default n = 1000
+2 - Run with "n" or not (matrix order). Default n = 1000
 ```
 ./dgemm <n>
 ```
@@ -17,6 +17,7 @@ or
 ## Add new function
 
 1 - Add other dgemm algorithm in "dgemms.c" and include it in dgemm.h
+
 2 - Add call to it algorithm in "main.c" using "test_dgemm" function, like:
 ```c
 case 1:
