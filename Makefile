@@ -3,11 +3,11 @@
 #  Departamento de Eletronica e de Computacao
 #  EEL - Arq. Comp - Turma 2023/2
 #  Prof. Diego
-#  Grupo: Andre Pereira, Davi Hetch, Marco Antônio
+#  Grupo: Andre Pereira, Davi Hecht, Marco Antônio
 #  Descricao: DGEMM
 
 CC = gcc
-CFLAGS = -Wall -mavx -std=c11
+CFLAGS =  -fopenmp -Wall -mavx -std=c11 -m32 
 
 # Programa principal
 MAIN = dgemm

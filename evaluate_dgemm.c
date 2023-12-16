@@ -1,22 +1,28 @@
 #include "utils.h"
 #include "evaluate_dgemm.h"
 #include <time.h>
+#include <x86intrin.h>
 #include <string.h>
 #ifdef __linux__ 
 #include <unistd.h>
 #endif
 
-#ifdef __WIN32
-#include <windows.h>
+#ifdef _WIN32
+    #include <windows.h>
 #endif
+
 
 
 int test_dgemm(size_t n, void (*func_dgemm)()){
 
     // Initialize vectors
+
+    
+
     double *A = (double *)malloc(n*n * sizeof(double));
     double *B = (double *)malloc(n*n * sizeof(double));
     double *C = (double *)calloc(n*n, sizeof(double));
+
     clock_t begin;
     clock_t end;
     double time_spent;
@@ -65,5 +71,6 @@ int test_dgemm(size_t n, void (*func_dgemm)()){
         time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
     }
     printf("\nTime spent: %f seconds\n", time_spent/i);
+    free(A);free(B);free(C);
     return 0;
 }
