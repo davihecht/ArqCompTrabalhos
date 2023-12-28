@@ -11,7 +11,7 @@ ENTITY RegistersIDEX IS
 		in_MemWrite :   in STD_LOGIC;
 		in_ALUOp :      in STD_LOGIC_VECTOR(1 downto 0);
 		in_ALUSrc :     in STD_LOGIC;
-		in_InstAddress: in STD_LOGIC_VECTOR(7 downto 0);
+		in_InstAddress: in STD_LOGIC_VECTOR(31 downto 0);
 		in_DataRs1:     in STD_LOGIC_VECTOR(31 downto 0);
 		in_DataRs2:     in STD_LOGIC_VECTOR(31 downto 0);
 		in_Immediate:   in STD_LOGIC_VECTOR(31 downto 0);
@@ -28,7 +28,7 @@ ENTITY RegistersIDEX IS
 		out_MemWrite :   out STD_LOGIC;
 		out_ALUOp :      out STD_LOGIC_VECTOR(1 downto 0);
 		out_ALUSrc :     out STD_LOGIC;
-		out_InstAddress: out STD_LOGIC_VECTOR(7 downto 0);
+		out_InstAddress: out STD_LOGIC_VECTOR(31 downto 0);
 		out_DataRs1:     out STD_LOGIC_VECTOR(31 downto 0);
 		out_DataRs2:     out STD_LOGIC_VECTOR(31 downto 0);
 		out_Immediate:   out STD_LOGIC_VECTOR(31 downto 0);
@@ -60,7 +60,7 @@ BEGIN
 	R5:  Register1bit  PORT MAP(in_MemWrite, Reset, Clock, out_MemWrite);
 	R6:  RegisterNbits GENERIC MAP(N=>2)  PORT MAP(in_ALUOp, Reset, Clock, out_ALUOp);
 	R7:  Register1bit  PORT MAP(in_ALUSrc, Reset, Clock, out_ALUSrc);
-	R8:  RegisterNbits GENERIC MAP(N=>8) PORT MAP(in_InstAddress, Reset, Clock, out_InstAddress);
+	R8:  RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_InstAddress, Reset, Clock, out_InstAddress);
 	R9:  RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs1, Reset, Clock, out_DataRs1);
 	R10: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs2, Reset, Clock, out_DataRs2);
 	R11: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_Immediate, Reset, Clock, out_Immediate);

@@ -7,7 +7,7 @@ ENTITY RegistersMEMWB IS
 		in_RegWrite :   in STD_LOGIC; 
 		in_MemToReg :   in STD_LOGIC;
 		in_ReadMemData: in STD_LOGIC_VECTOR(31 downto 0);
-		in_AddressMem:  in STD_LOGIC_VECTOR(7 downto 0);
+		in_AddressMem:  in STD_LOGIC_VECTOR(31 downto 0);
 		in_AddressRd:   in STD_LOGIC_VECTOR(4 downto 0);
 		Reset, Clock:   in STD_LOGIC ; 
         ---------------------------------------------------	
@@ -15,7 +15,7 @@ ENTITY RegistersMEMWB IS
 		out_RegWrite :   out STD_LOGIC; 
 		out_MemToReg :   out STD_LOGIC;
 		out_ReadMemData: out STD_LOGIC_VECTOR(31 downto 0);
-		out_AddressMem:  out STD_LOGIC_VECTOR(7 downto 0);
+		out_AddressMem:  out STD_LOGIC_VECTOR(31 downto 0);
 		out_AddressRd:   out STD_LOGIC_VECTOR(4 downto 0)
 	); 
 END RegistersMEMWB ; 
@@ -39,7 +39,7 @@ BEGIN
 	R1: Register1bit  PORT MAP(in_RegWrite, Reset, Clock, out_RegWrite);
 	R2: Register1bit  PORT MAP(in_MemToReg, Reset, Clock, out_MemToReg);
 	R3: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_ReadMemData, Reset, Clock, out_ReadMemData);	
-	R4: RegisterNbits GENERIC MAP(N=>8)  PORT MAP(in_AddressMem, Reset, Clock, out_AddressMem);
+	R4: RegisterNbits GENERIC MAP(N=>32)  PORT MAP(in_AddressMem, Reset, Clock, out_AddressMem);
 	R5: RegisterNbits GENERIC MAP(N=>5)  PORT MAP(in_AddressRd, Reset, Clock, out_AddressRd);
 
 END structural ;

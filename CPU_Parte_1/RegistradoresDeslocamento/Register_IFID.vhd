@@ -4,12 +4,12 @@ USE ieee.std_logic_1164.all ;
 ENTITY RegistersIFID IS 
 	-- Inputs
 	PORT ( 
-		in_InstAddress: in STD_LOGIC_VECTOR(7 downto 0);
+		in_InstAddress: in STD_LOGIC_VECTOR(31 downto 0);
 		in_Instruction: in STD_LOGIC_VECTOR(31 downto 0);
 		Reset, Clock:   in STD_LOGIC ;
         ---------------------------------------------------	
 	-- Outputs
-		out_InstAddress: out STD_LOGIC_VECTOR(7 downto 0);
+		out_InstAddress: out STD_LOGIC_VECTOR(31 downto 0);
 		out_Instruction: out STD_LOGIC_VECTOR(31 downto 0)
 	); 
 END RegistersIFID ; 
@@ -30,6 +30,6 @@ ARCHITECTURE structural OF RegistersIFID IS
 		);
 	END COMPONENT;
 BEGIN 
-	R1: RegisterNbits GENERIC MAP(N=>8) PORT MAP(in_InstAddress, Reset, Clock, out_InstAddress);	
+	R1: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_InstAddress, Reset, Clock, out_InstAddress);	
 	R2: RegisterNbits GENERIC MAP(N=>32)  PORT MAP(in_Instruction, Reset, Clock, out_Instruction);
 END structural ;
