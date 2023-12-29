@@ -61,9 +61,9 @@ ARCHITECTURE structural OF RegistersIDEX IS
 		);
 	END COMPONENT;
 
-	signal in_funct7_30:   in STD_LOGIC;
-	signal in_funct3:      in STD_LOGIC_VECTOR(2 downto 0);
-	signal in_AddressRd:   in STD_LOGIC_VECTOR(4 downto 0);
+	signal in_funct7_30:  STD_LOGIC;
+	signal in_funct3:     STD_LOGIC_VECTOR(2 downto 0);
+	signal in_AddressRd:  STD_LOGIC_VECTOR(4 downto 0);
 
 BEGIN 
 

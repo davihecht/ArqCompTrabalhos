@@ -29,9 +29,9 @@ END ALUControlAVX;
 --------------------------------------------------------------------------------
 
 ARCHITECTURE structural OF ALUControlAVX IS
-	signal funct3:      in STD_LOGIC_VECTOR (2 downto 0);
-	signal funct7_30:   in STD_LOGIC;
-	signal funct7_2625: in STD_LOGIC_VECTOR(1 downto 0);
+	signal funct3:         STD_LOGIC_VECTOR (2 downto 0);
+	signal funct7_30:      STD_LOGIC;
+	signal funct7_2625:    STD_LOGIC_VECTOR(1 downto 0);
 
 	signal funct7func3:    STD_LOGIC_VECTOR(3 downto 0);
 	signal op_buffer_R, op_buffer_I, op_buffer_benq: STD_LOGIC_VECTOR(3 downto 0);
