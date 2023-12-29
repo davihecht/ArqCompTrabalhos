@@ -32,16 +32,15 @@ END SomadorVetorialAVX;
 
 ARCHITECTURE structural OF SomadorVetorialAVX IS
 	COMPONENT ALU4bits IS
-		PORT(X, Y:          IN  STD_LOGIC_VECTOR (3 downto 0);
-  			seletor, Cin:    IN  STD_LOGIC;
-  			Juntar:          IN  STD_LOGIC;
-         resultado:       OUT STD_LOGIC_VECTOR (3 downto 0);
-	      Cout:            OUT STD_LOGIC
+		PORT(X, Y:         IN  STD_LOGIC_VECTOR (3 downto 0);
+  		     seletor, Cin: IN  STD_LOGIC;
+  		     Juntar:       IN  STD_LOGIC;
+         	     resultado:    OUT STD_LOGIC_VECTOR (3 downto 0);
+	      	     Cout:         OUT STD_LOGIC
 		);
 	END COMPONENT;
 	signal juntar, resultado: STD_LOGIC_VECTOR (7 downto 0); 
 	signal cin_i:  STD_LOGIC_VECTOR (8 downto 0); 
-
 	
 BEGIN
 	cin_i(0) <= '0'; -- Just to initialize, doesn't matter
@@ -59,8 +58,6 @@ BEGIN
 
 	-- When vecSize_i == 11
 	juntar(4) <= vecSize_i(1) AND vecSize_i(0);
-
-
 
 	G1: for i in 0 to 7 GENERATE
 		func_i: ALU4bits PORT MAP(

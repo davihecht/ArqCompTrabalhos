@@ -13,24 +13,28 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
-ENTITY ALUControl IS
+ENTITY ALUControlAVX IS
   PORT (
   --Inputs
-  	ALUOp:  in STD_LOGIC_VECTOR (1 downto 0);
-	funct3: in STD_LOGIC_VECTOR (2 downto 0);
-	funct7_30: in STD_LOGIC;
+  	ALUOp:       in STD_LOGIC_VECTOR (3 downto 0);
+	funct3:      in STD_LOGIC_VECTOR (2 downto 0);
+	funct7_30:   in STD_LOGIC;
+	funct7_2625: in STD_LOGIC_VECTOR(1 downto 0);
   ------------------------------------------------------------------------------	
-	op:     out STD_LOGIC_VECTOR (3 downto 0)
+	op:        out STD_LOGIC_VECTOR (3 downto 0);
+	vecSize:   out STD_LOGIC_VECTOR (1 downto 0)
     );
-END ALUControl;
+END ALUControlAVX;
 
 --------------------------------------------------------------------------------
 --Complete your VHDL description below
 --------------------------------------------------------------------------------
 
-ARCHITECTURE structural OF ALUControl IS
+ARCHITECTURE structural OF ALUControlAVX IS
 	signal funct7func3:    STD_LOGIC_VECTOR(3 downto 0);
 	signal op_buffer_R, op_buffer_I, op_buffer_benq: STD_LOGIC_VECTOR(3 downto 0);
+	signal op_buffer_R_AVX, op_buffer_I_AVX: STD_LOGIC_VECTOR(3 downto 0);
+	signal vecSize_R_AVX:  STD_LOGIC_VECTOR(1 downto 0);
 
 begin	
 	
@@ -62,11 +66,45 @@ begin
 		"1111" when others;         --invalid
 
 	
+	--AVX
+	with funct7func3 select op_buffer_R_AVX <=
+		"0111" when "0000", --add_avx
+		"1010" when "1000", --sub_avx
+		"0011" when "0001", --sll_avx
+		"0101" when "0101", --srl_avx
+		"1111" when others;	
+
+	with funct3 select op_buffer_I_AVX <=
+		"0111" when "000",  --addi_avx
+		"0011" when "001",  --slli_avx
+		"0101" when "101",  --srli_avx
+		"1111" when others;	
+
+	-- AVX vecSize:
+
+	-- If R type, vecSize = funct7_2625
+	vecSize_R_AVX <= funct7_2625;
+
+	-- SELECT vecSize
+	with ALUOp select vecSize <=
+		vecSize_R_AVX when "0100",
+		"00" when "1000", -- I type
+		"01" when "1001", -- I type
+		"10" when "1010", -- I type
+		"11" when "1011", -- I type
+		"XX" when others;
+
+	-- SELECT op
 	with ALUOp select op <=
-		"0010" when "00", --lw/sw/jalr
-		op_buffer_benq when "01",
-		op_buffer_R when "10",
-		op_buffer_I when "11",
+		"0010" when "0000", --lw/sw/jalr
+		op_buffer_benq when "0001",
+		op_buffer_R when "0010",
+		op_buffer_I when "0011",
+		op_buffer_R_AVX when "0100",
+		op_buffer_I_AVX when "1000",
+		op_buffer_I_AVX when "1001",
+		op_buffer_I_AVX when "1010",
+		op_buffer_I_AVX when "1011",
 		"1111" when others;
 	
 end structural;

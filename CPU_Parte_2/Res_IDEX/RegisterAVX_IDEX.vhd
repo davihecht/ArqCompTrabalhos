@@ -14,7 +14,7 @@ ENTITY RegistersIDEX IS
 		in_MemRead :    in STD_LOGIC;
 		in_MemWrite :   in STD_LOGIC;
 		in_Lui:         in STD_LOGIC;
-		in_ALUOp :      in STD_LOGIC_VECTOR(1 downto 0);
+		in_ALUOp :      in STD_LOGIC_VECTOR(3 downto 0);
 		in_ALUSrc :     in STD_LOGIC;
 		in_InstAddress: in STD_LOGIC_VECTOR(31 downto 0);
 		in_DataRs1:     in STD_LOGIC_VECTOR(31 downto 0);
@@ -36,7 +36,7 @@ ENTITY RegistersIDEX IS
 		out_MemRead :    out STD_LOGIC;
 		out_MemWrite :   out STD_LOGIC;
 		out_Lui:         out STD_LOGIC;
-		out_ALUOp :      out STD_LOGIC_VECTOR(1 downto 0);
+		out_ALUOp :      out STD_LOGIC_VECTOR(3 downto 0);
 		out_ALUSrc :     out STD_LOGIC;
 		out_InstAddress: out STD_LOGIC_VECTOR(31 downto 0);
 		out_DataRs1:     out STD_LOGIC_VECTOR(31 downto 0);
@@ -72,11 +72,11 @@ BEGIN
 	R7:  RegisterNbits  GENERIC MAP(N=>32) PORT MAP(in_PCNext, Reset, Clock, out_PCNext);
 	R8:  Register1bit  PORT MAP(in_MemRead, Reset, Clock, out_MemRead);
 	R9:  Register1bit  PORT MAP(in_MemWrite, Reset, Clock, out_MemWrite);
-	R10:  Register1bit  PORT MAP(in_Lui, Reset, Clock, out_Lui);
-	R11:  RegisterNbits GENERIC MAP(N=>2)  PORT MAP(in_ALUOp, Reset, Clock, out_ALUOp);
-	R12:  Register1bit  PORT MAP(in_ALUSrc, Reset, Clock, out_ALUSrc);
-	R13:  RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_InstAddress, Reset, Clock, out_InstAddress);
-	R14:  RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs1, Reset, Clock, out_DataRs1);
+	R10: Register1bit  PORT MAP(in_Lui, Reset, Clock, out_Lui);
+	R11: RegisterNbits GENERIC MAP(N=>4)  PORT MAP(in_ALUOp, Reset, Clock, out_ALUOp);
+	R12: Register1bit  PORT MAP(in_ALUSrc, Reset, Clock, out_ALUSrc);
+	R13: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_InstAddress, Reset, Clock, out_InstAddress);
+	R14: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs1, Reset, Clock, out_DataRs1);
 	R15: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs2, Reset, Clock, out_DataRs2);
 	R16: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_Immediate, Reset, Clock, out_Immediate);
 	R17: Register1bit  PORT MAP(in_funct7_10, Reset, Clock, out_funct7_10);

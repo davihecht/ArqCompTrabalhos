@@ -80,9 +80,9 @@ ARCHITECTURE structural OF ALU IS
 
 	signal cout_buffer, zero_buffer, not_zero_buffer: STD_LOGIC := '1';
 	signal not_Y :       STD_LOGIC_VECTOR (31 downto 0);
-	signal output_AND, output_OR, output_ADD:         STD_LOGIC_VECTOR (31 downto 0);
-	signal output_SUB, output_XOR, output_SLL:        STD_LOGIC_VECTOR (31 downto 0);
-	signal output_SRL:       STD_LOGIC_VECTOR (31 downto 0);	
+	signal output_AND, output_OR, output_ADD:   STD_LOGIC_VECTOR (31 downto 0);
+	signal output_SUB, output_XOR, output_SLL:  STD_LOGIC_VECTOR (31 downto 0);
+	signal output_SRL:   STD_LOGIC_VECTOR (31 downto 0);	
 
 begin	
 
