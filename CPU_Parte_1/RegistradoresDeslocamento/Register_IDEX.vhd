@@ -20,9 +20,7 @@ ENTITY RegistersIDEX IS
 		in_DataRs1:     in STD_LOGIC_VECTOR(31 downto 0);
 		in_DataRs2:     in STD_LOGIC_VECTOR(31 downto 0);
 		in_Immediate:   in STD_LOGIC_VECTOR(31 downto 0);
-		in_funct7_10:   in STD_LOGIC;
-		in_funct3:      in STD_LOGIC_VECTOR(2 downto 0);
-		in_AddressRd:   in STD_LOGIC_VECTOR(4 downto 0);
+		in_instruction: in STD_LOGIC_VECTOR(31 downto 0);
 		Reset, Clock:   in STD_LOGIC ;
         ---------------------------------------------------	
 	-- Outputs
@@ -42,7 +40,7 @@ ENTITY RegistersIDEX IS
 		out_DataRs1:     out STD_LOGIC_VECTOR(31 downto 0);
 		out_DataRs2:     out STD_LOGIC_VECTOR(31 downto 0);
 		out_Immediate:   out STD_LOGIC_VECTOR(31 downto 0);
-		out_funct7_10:   out STD_LOGIC;
+		out_funct7_30:   out STD_LOGIC;
 		out_funct3:      out STD_LOGIC_VECTOR(2 downto 0);
 		out_AddressRd:   out STD_LOGIC_VECTOR(4 downto 0)
 	); 
@@ -62,7 +60,17 @@ ARCHITECTURE structural OF RegistersIDEX IS
 		     Q : OUT STD_LOGIC 
 		);
 	END COMPONENT;
+
+	signal in_funct7_30:   in STD_LOGIC;
+	signal in_funct3:      in STD_LOGIC_VECTOR(2 downto 0);
+	signal in_AddressRd:   in STD_LOGIC_VECTOR(4 downto 0);
+
 BEGIN 
+
+	in_AddressRd <= in_instruction(11 downto 7);
+	in_funct3 <= in_instruction(14 downto 12);
+	in_funct7_30 <= in_instruction(30);
+
 	R1:  Register1bit  PORT MAP(in_RegWrite, Reset, Clock, out_RegWrite);
 	R2:  Register1bit  PORT MAP(in_MemToReg, Reset, Clock, out_MemToReg);
 	R3:  Register1bit  PORT MAP(in_JumpR, Reset, Clock, out_JumpR);
@@ -79,7 +87,7 @@ BEGIN
 	R14:  RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs1, Reset, Clock, out_DataRs1);
 	R15: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs2, Reset, Clock, out_DataRs2);
 	R16: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_Immediate, Reset, Clock, out_Immediate);
-	R17: Register1bit  PORT MAP(in_funct7_10, Reset, Clock, out_funct7_10);
+	R17: Register1bit  PORT MAP(in_funct7_30, Reset, Clock, out_funct7_30);
 	R18: RegisterNbits GENERIC MAP(N=>3)  PORT MAP(in_funct3, Reset, Clock, out_funct3);
 	R19: RegisterNbits GENERIC MAP(N=>5)  PORT MAP(in_AddressRd, Reset, Clock, out_AddressRd);
 

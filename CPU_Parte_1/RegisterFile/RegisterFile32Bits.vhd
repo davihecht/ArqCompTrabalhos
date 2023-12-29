@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 entity register_file is
   port(
-    clk:          in  std_logic;
-    RegWrite:     in  std_logic;
-    AddressRs1, AddressRs2, AddressRd: in  std_logic_vector(4 downto 0);
+    clk:            in  std_logic;
+    RegWrite:       in  std_logic;
+    instruction:    in std_logic_vector(31 downto 0);
     DataWriteRd:    in  std_logic_vector(31 downto 0);
     ReadRs1:        out std_logic_vector(31 downto 0);
     ReadRs2:        out std_logic_vector(31 downto 0)
@@ -17,7 +17,13 @@ end register_file;
 architecture behavioral of register_file is
   type registerFile is array(0 to 31) of std_logic_vector(31 downto 0);
   signal registers : registerFile;
+  signal AddressRs1, AddressRs2, AddressRd: std_logic_vector(4 downto 0);
+
 begin
+
+  AddressRs1 <= instruction(19 downto 15);
+  AddressRs2 <= instruction(24 downto 20);
+  AddressRd  <= instruction(11 downto 7);
 
   registers(0) <= "00000000000000000000000000000000"; -- Falta ajeitar esse x0
 

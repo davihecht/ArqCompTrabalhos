@@ -16,7 +16,7 @@ USE ieee.numeric_std.all;
 ENTITY Control IS
   PORT (
   --Inputs
-  	OpCode: in STD_LOGIC_VECTOR (6 downto 0);
+    instruction: in STD_LOGIC_VECTOR (31 downto 0);
   ------------------------------------------------------------------------------	
 	RegWrite, MemtoReg, JumpR, Jump, Auipc:  out STD_LOGIC;
 	Branch, MemRead, MemWrite, Lui, ALUSrc:  out STD_LOGIC;
@@ -29,9 +29,12 @@ END Control;
 --------------------------------------------------------------------------------
 
 ARCHITECTURE structural OF Control IS
+	signal OpCode:  STD_LOGIC_VECTOR (6 downto 0);
 	signal outputs: STD_LOGIC_VECTOR(13 downto 0);
 
 begin	
+	OpCode <= instruction(6 downto 0);
+
 	with OpCode select outputs <=
 		"00100000000010" when "0110011", --R-type
 		"11110000000000" when "0000011", --lw
