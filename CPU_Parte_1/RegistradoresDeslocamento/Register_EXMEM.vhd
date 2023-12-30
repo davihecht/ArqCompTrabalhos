@@ -16,7 +16,7 @@ ENTITY RegistersEXMEM IS
 		in_Zero:           in STD_LOGIC;
 		in_ALUResult:      in STD_LOGIC_VECTOR(31 downto 0);    
 		in_DataRs2:        in STD_LOGIC_VECTOR(31 downto 0);
-		in_instruction:    in STD_LOGIC_VECTOR(31 downto 0);
+		in_AddressRd:      in STD_LOGIC_VECTOR(4 downto 0)
 		Reset, Clock:      in STD_LOGIC ; 
         ---------------------------------------------------	
 	-- Outputs
@@ -52,11 +52,7 @@ ARCHITECTURE structural OF RegistersEXMEM IS
 		);
 	END COMPONENT;
 
-	signal in_AddressRd: STD_LOGIC_VECTOR(4 downto 0);
-
 BEGIN 
-
-	in_AddressRd <= in_instruction(11 downto 7);
 
 	R1:  Register1bit  PORT MAP(in_RegWrite, Reset, Clock, out_RegWrite);
 	R2:  Register1bit  PORT MAP(in_MemToReg, Reset, Clock, out_MemToReg);
@@ -70,4 +66,5 @@ BEGIN
 	R10: Register1bit  PORT MAP(in_Zero, Reset, Clock, out_Zero);
 	R11: RegisterNbits GENERIC MAP(N=>32) PORT MAP(in_DataRs2, Reset, Clock, out_DataRs2);
 	R12: RegisterNbits GENERIC MAP(N=>5)  PORT MAP(in_AddressRd, Reset, Clock, out_AddressRd);
+	
 END structural ;

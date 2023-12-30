@@ -16,10 +16,11 @@ USE ieee.numeric_std.all;
 ENTITY ALUControl IS
   PORT (
   --Inputs
-  	ALUOp:  in STD_LOGIC_VECTOR (1 downto 0);
-	instruction: in STD_LOGIC_VECTOR (31 downto 0);
+  	ALUOp:     in STD_LOGIC_VECTOR (1 downto 0);
+	funct3:    in STD_LOGIC_VECTOR (2 downto 0);
+	funct7_30: in STD_LOGIC;
   ------------------------------------------------------------------------------	
-	op:     out STD_LOGIC_VECTOR (3 downto 0)
+	op:        out STD_LOGIC_VECTOR (3 downto 0)
     );
 END ALUControl;
 
@@ -28,17 +29,10 @@ END ALUControl;
 --------------------------------------------------------------------------------
 
 ARCHITECTURE structural OF ALUControl IS
-	signal funct3:         STD_LOGIC_VECTOR (2 downto 0);
-	signal funct7_30:      STD_LOGIC;
-
 	signal funct7func3:    STD_LOGIC_VECTOR(3 downto 0);
 	signal op_buffer_R, op_buffer_I, op_buffer_benq: STD_LOGIC_VECTOR(3 downto 0);
 
 begin	
-	
-	funct3 <= instruction(14 downto 12);
-	funct7_30 <= instruction(30);
-
 	funct7func3(3) <= funct7_30;
 	funct7func3(2 downto 0) <= funct3;
 
