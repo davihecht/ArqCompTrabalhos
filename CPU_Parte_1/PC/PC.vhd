@@ -3,10 +3,10 @@ USE ieee.std_logic_1164.all ;
 
 ENTITY PC IS 
 	PORT ( 
-		NewAddress:   in STD_LOGIC_VECTOR(31 downto 0);
+		NewAddress:    in STD_LOGIC_VECTOR(31 downto 0);
 		Reset, Clock:  in STD_LOGIC;
         ---------------------------------------------------	
-		PCAddress:     out STD_LOGIC_VECTOR(31 downto 0)
+		PCAddress:     out STD_LOGIC_VECTOR(23 downto 0)
 	);
 END PC ;
 
@@ -19,6 +19,6 @@ ARCHITECTURE structural OF PC IS
 		);
 	END COMPONENT;
 BEGIN 	
-	PC_R: RegisterNbits GENERIC MAP(N=>32) PORT MAP(NewAddress, Reset, Clock, PCAddress);
+	PC_R: RegisterNbits GENERIC MAP(N=>24) PORT MAP(NewAddress(23 downto 0), Reset, Clock, PCAddress);
 
 END structural;
